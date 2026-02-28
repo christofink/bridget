@@ -1,0 +1,93 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  z-index: 100;
+}
+
+.container {
+  max-width: 400px;
+  width: 100%;
+  padding: 32px 24px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+  }
+}
+
+.container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.container p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.container ol {
+  text-align: left;
+  padding-left: 24px;
+  margin-bottom: 16px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.container button {
+  display: inline-block;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 12px 24px;
+  margin: 4px 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.container button:hover {
+  background: var(--accent-hover);
+}
+
+.container div[role="alert"] {
+  background: rgba(255, 59, 48, 0.15);
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.container div[role="alert"] p {
+  color: #ff6b6b;
+  margin-bottom: 0;
+}

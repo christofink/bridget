@@ -1,0 +1,47 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: var(--action-bar-height);
+  padding: 0 16px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.startBtn {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 8px 32px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.startBtn:hover {
+  background: var(--accent-hover);
+}
+
+.actionBtn {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 8px 24px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.actionBtn:hover {
+  background: var(--bg-surface);
+}

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/chrisarmstrong/Documents/Clients/LiveSubtitles/bridget/*.md 2>/dev/null || echo \"no md files at root\")"
+    ]
+  }
+}
