@@ -4,10 +4,12 @@ import { useState, useCallback } from 'react';
 import WelcomeStep from './WelcomeStep';
 import MicPermissionStep from './MicPermissionStep';
 import PwaInstallStep from './PwaInstallStep';
+import VoiceEnrollment from '@/components/enrollment/VoiceEnrollment';
+import { useVoiceEnrollment } from '@/hooks/useVoiceEnrollment';
 import { isStandalone } from '@/lib/pwa/standalone';
 import styles from './OnboardingFlow.module.css';
 
-type OnboardingStep = 'welcome' | 'mic-permission' | 'pwa-install';
+type OnboardingStep = 'welcome' | 'mic-permission' | 'voice-enrollment' | 'pwa-install';
 
 export interface OnboardingFlowProps {
   onComplete: () => void;
@@ -15,6 +17,7 @@ export interface OnboardingFlowProps {
 
 export default function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   const [step, setStep] = useState<OnboardingStep>('welcome');
+  const enrollment = useVoiceEnrollment();
 
   // Focus the step container when it mounts (key={step} causes remount)
   const focusRef = useCallback((node: HTMLElement | null) => {
@@ -22,6 +25,10 @@ export default function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   }, []);
 
   const handleMicGranted = () => {
+    setStep('voice-enrollment');
+  };
+
+  const handleEnrollmentDone = () => {
     if (isStandalone()) {
       onComplete();
     } else {
@@ -37,6 +44,17 @@ export default function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
         )}
         {step === 'mic-permission' && (
           <MicPermissionStep onNext={handleMicGranted} />
+        )}
+        {step === 'voice-enrollment' && (
+          <VoiceEnrollment
+            state={enrollment.state}
+            progress={enrollment.progress}
+            error={enrollment.error}
+            onStart={enrollment.startRecording}
+            onCancel={enrollment.cancelRecording}
+            onComplete={handleEnrollmentDone}
+            onSkip={handleEnrollmentDone}
+          />
         )}
         {step === 'pwa-install' && (
           <PwaInstallStep

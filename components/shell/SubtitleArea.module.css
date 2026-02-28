@@ -31,3 +31,24 @@
 .interim {
   font-style: italic;
 }
+
+.userSpeaker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-left: 3px solid var(--accent);
+  padding-left: 8px;
+}
+
+.speakerIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  flex-shrink: 0;
+}

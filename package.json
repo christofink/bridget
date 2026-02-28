@@ -10,11 +10,14 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "postinstall": "cp node_modules/ort/dist/ort-wasm-simd-threaded.jsep.mjs node_modules/ort/dist/ort-wasm-simd-threaded.jsep.wasm node_modules/ort/dist/ort-wasm-simd-threaded.mjs node_modules/ort/dist/ort-wasm-simd-threaded.wasm public/"
   },
   "dependencies": {
+    "@jaehyun-ko/speaker-verification": "^5.0.0",
     "@serwist/next": "^9.5.6",
     "next": "16.1.6",
+    "ort": "npm:onnxruntime-web@^1.24.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "serwist": "^9.5.6"

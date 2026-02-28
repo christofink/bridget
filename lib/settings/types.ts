@@ -6,4 +6,7 @@ export interface BridgetSettings {
   subtitlePosition: 'top' | 'center' | 'bottom';
   highContrast: boolean;
   reducedMotion: boolean;
+  speakerIdEnabled: boolean;
+  filterMode: 'all' | 'my-voice';
+  speakerIdThreshold: number;
 }

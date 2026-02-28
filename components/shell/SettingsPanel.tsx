@@ -12,6 +12,9 @@ export interface SettingsPanelProps {
   onUpdateSettings: (partial: Partial<BridgetSettings>) => void;
   onResetDefaults: () => void;
   triggerRef: RefObject<HTMLButtonElement | null>;
+  hasVoiceProfile?: boolean;
+  onEnrollVoice?: () => void;
+  onDeleteVoiceProfile?: () => void;
 }
 
 const COLOR_PRESETS = [
@@ -35,6 +38,9 @@ export default function SettingsPanel({
   onUpdateSettings,
   onResetDefaults,
   triggerRef,
+  hasVoiceProfile,
+  onEnrollVoice,
+  onDeleteVoiceProfile,
 }: SettingsPanelProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const wasOpen = useRef(false);
@@ -238,6 +244,38 @@ export default function SettingsPanel({
             />
             Reduce animations
           </label>
+        </fieldset>
+
+        {/* Voice Profile */}
+        <fieldset className={styles.group}>
+          <legend className={styles.legend}>Voice Profile</legend>
+          {hasVoiceProfile ? (
+            <>
+              <p className={styles.profileStatus}>Voice profile active</p>
+              <label className={styles.toggleLabel}>
+                <input
+                  type="checkbox"
+                  checked={settings.speakerIdEnabled}
+                  onChange={(e) => onUpdateSettings({ speakerIdEnabled: e.target.checked })}
+                />
+                Enable speaker identification
+              </label>
+              <button
+                type="button"
+                className={styles.dangerBtn}
+                onClick={onDeleteVoiceProfile}
+              >
+                Delete voice profile
+              </button>
+            </>
+          ) : (
+            <>
+              <p className={styles.profileStatus}>No voice profile set up</p>
+              <button type="button" onClick={onEnrollVoice}>
+                Set up voice profile
+              </button>
+            </>
+          )}
         </fieldset>
 
         {/* Reset */}

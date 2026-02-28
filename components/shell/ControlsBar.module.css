@@ -15,6 +15,46 @@
   color: var(--text-primary);
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filterBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  padding: 4px 12px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.filterBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.filterActive {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filterActive:hover {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+  color: #fff;
+}
+
 .settingsBtn {
   display: flex;
   align-items: center;

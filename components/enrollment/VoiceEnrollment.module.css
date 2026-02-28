@@ -1,0 +1,82 @@
+.step {
+  text-align: center;
+}
+
+.icon {
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.skipBtn {
+  background: transparent !important;
+  color: var(--text-muted) !important;
+  text-decoration: underline;
+}
+
+/* Progress ring */
+.progressRing {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+}
+
+.progressSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progressTrack {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 6;
+}
+
+.progressFill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.progressText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Spinner */
+.spinner {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  border: 4px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: var(--accent);
+    opacity: 0.7;
+  }
+
+  .progressFill {
+    transition: none;
+  }
+}

@@ -19,6 +19,9 @@
 /public/sw.js
 /public/sw.js.map
 
+# onnxruntime-web WASM files (copied from node_modules at postinstall)
+/public/ort-wasm-*
+
 # next.js
 /.next/
 /out/

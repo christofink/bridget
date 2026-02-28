@@ -30,6 +30,20 @@ beforeEach(() => {
   vi.mocked(standaloneModule.isStandalone).mockReturnValue(false);
 });
 
+/** Helper: advance through welcome → mic → voice enrollment (skipped) */
+async function advancePastMicAndEnrollment() {
+  fireEvent.click(screen.getByRole('button', { name: /get started/i }));
+  fireEvent.click(screen.getByRole('button', { name: /allow microphone/i }));
+
+  // Wait for voice enrollment step
+  await waitFor(() => {
+    expect(screen.getByRole('heading', { name: /learn your voice/i })).toBeTruthy();
+  });
+
+  // Skip enrollment
+  fireEvent.click(screen.getByRole('button', { name: /skip/i }));
+}
+
 describe('OnboardingFlow', () => {
   it('first visit shows welcome screen', () => {
     render(<OnboardingFlow onComplete={vi.fn()} />);
@@ -43,7 +57,7 @@ describe('OnboardingFlow', () => {
     expect(screen.getByRole('heading', { name: /microphone/i })).toBeTruthy();
   });
 
-  it('microphone granted advances to PWA install step', async () => {
+  it('microphone granted advances to voice enrollment step', async () => {
     const mockTrack = { stop: vi.fn() };
     mockGetUserMedia.mockResolvedValue({ getTracks: () => [mockTrack] });
 
@@ -52,9 +66,21 @@ describe('OnboardingFlow', () => {
     fireEvent.click(screen.getByRole('button', { name: /allow microphone/i }));
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { name: /home screen/i })).toBeTruthy();
+      expect(screen.getByRole('heading', { name: /learn your voice/i })).toBeTruthy();
     });
     expect(mockTrack.stop).toHaveBeenCalled();
+  });
+
+  it('voice enrollment can be skipped to reach PWA install', async () => {
+    const mockTrack = { stop: vi.fn() };
+    mockGetUserMedia.mockResolvedValue({ getTracks: () => [mockTrack] });
+
+    render(<OnboardingFlow onComplete={vi.fn()} />);
+    await advancePastMicAndEnrollment();
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /home screen/i })).toBeTruthy();
+    });
   });
 
   it('microphone denied shows retry UI with explanation', async () => {
@@ -76,8 +102,7 @@ describe('OnboardingFlow', () => {
     mockGetUserMedia.mockResolvedValue({ getTracks: () => [mockTrack] });
 
     render(<OnboardingFlow onComplete={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: /get started/i }));
-    fireEvent.click(screen.getByRole('button', { name: /allow microphone/i }));
+    await advancePastMicAndEnrollment();
 
     await waitFor(() => {
       expect(screen.getByRole('button', { name: /skip/i })).toBeTruthy();
@@ -91,8 +116,7 @@ describe('OnboardingFlow', () => {
     mockGetUserMedia.mockResolvedValue({ getTracks: () => [mockTrack] });
 
     render(<OnboardingFlow onComplete={onComplete} />);
-    fireEvent.click(screen.getByRole('button', { name: /get started/i }));
-    fireEvent.click(screen.getByRole('button', { name: /allow microphone/i }));
+    await advancePastMicAndEnrollment();
 
     await waitFor(() => {
       expect(onComplete).toHaveBeenCalled();
@@ -105,12 +129,7 @@ describe('OnboardingFlow', () => {
     mockGetUserMedia.mockResolvedValue({ getTracks: () => [mockTrack] });
 
     render(<OnboardingFlow onComplete={onComplete} />);
-
-    // Welcome step
-    fireEvent.click(screen.getByRole('button', { name: /get started/i }));
-
-    // Mic step
-    fireEvent.click(screen.getByRole('button', { name: /allow microphone/i }));
+    await advancePastMicAndEnrollment();
 
     // PWA install step - skip
     await waitFor(() => {
@@ -130,8 +149,7 @@ describe('OnboardingFlow', () => {
     mockGetUserMedia.mockResolvedValue({ getTracks: () => [mockTrack] });
 
     render(<OnboardingFlow onComplete={vi.fn()} />);
-    fireEvent.click(screen.getByRole('button', { name: /get started/i }));
-    fireEvent.click(screen.getByRole('button', { name: /allow microphone/i }));
+    await advancePastMicAndEnrollment();
 
     await waitFor(() => {
       expect(screen.getByText(/auto-lock/i)).toBeTruthy();

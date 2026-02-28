@@ -8,4 +8,7 @@ export const DEFAULT_SETTINGS: BridgetSettings = {
   subtitlePosition: 'bottom',
   highContrast: false,
   reducedMotion: false,
+  speakerIdEnabled: false,
+  filterMode: 'all',
+  speakerIdThreshold: 0.5,
 };
