@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "next build --webpack && cp public/ort-wasm-simd-threaded.* out/_next/static/chunks/",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

@@ -1,40 +1,10 @@
 {
-  "rewrites": [
-    {
-      "source": "/_next/static/chunks/ort-wasm-simd-threaded.jsep.mjs",
-      "destination": "/ort-wasm-simd-threaded.jsep.mjs"
-    },
-    {
-      "source": "/_next/static/chunks/ort-wasm-simd-threaded.jsep.wasm",
-      "destination": "/ort-wasm-simd-threaded.jsep.wasm"
-    },
-    {
-      "source": "/_next/static/chunks/ort-wasm-simd-threaded.mjs",
-      "destination": "/ort-wasm-simd-threaded.mjs"
-    },
-    {
-      "source": "/_next/static/chunks/ort-wasm-simd-threaded.wasm",
-      "destination": "/ort-wasm-simd-threaded.wasm"
-    }
-  ],
   "headers": [
     {
       "source": "/sw.js",
       "headers": [
         { "key": "Cache-Control", "value": "no-cache" },
         { "key": "Service-Worker-Allowed", "value": "/" }
-      ]
-    },
-    {
-      "source": "/ort-wasm-simd-threaded.jsep.mjs",
-      "headers": [
-        { "key": "Content-Type", "value": "application/javascript" }
-      ]
-    },
-    {
-      "source": "/ort-wasm-simd-threaded.mjs",
-      "headers": [
-        { "key": "Content-Type", "value": "application/javascript" }
       ]
     }
   ]
